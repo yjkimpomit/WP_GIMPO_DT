@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>김포열병합 디지털트윈 플랫폼 v14</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app-shell" id="appShell">
+    <section class="model-background" aria-label="3D 가상모델 배경">
+      <div class="model-gradient"></div>
+      <div class="floor-grid"></div>
+      <div class="plant-scene" aria-hidden="true">
+        <div class="plant-unit gt"><span>GT</span></div>
+        <div class="plant-unit comp"><span>COMP</span></div>
+        <div class="plant-unit hrsg"><span>HRSG</span></div>
+        <div class="plant-unit gen"><span>GEN</span></div>
+        <div class="pipe pipe-a"></div>
+        <div class="pipe pipe-b"></div>
+      </div>
+      <button class="hotspot danger" type="button" data-popup="tagPopup" style="--x:40%;--y:38%">Red-Tag</button>
+      <button class="hotspot warning" type="button" data-popup="safetyPopup" style="--x:65%;--y:52%">작업자</button>
+      <button class="hotspot normal" type="button" data-popup="trendPopup" style="--x:53%;--y:29%">Trend</button>
+      <div class="model-caption">
+        <strong>3D Digital Twin Background</strong>
+        <span>Tag 기준으로 3D 모델·도면·운전정보·정비이력·파노라마가 연계됩니다.</span>
+      </div>
+    </section>
+
+    <header class="topbar">
+      <div class="brand">
+        <button class="icon-button menu-toggle" id="menuToggle" type="button" aria-label="메뉴 열기" aria-controls="sidebar" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="brand-mark">DT</div>
+        <div class="brand-text">
+          <strong>김포열병합 디지털트윈</strong>
+          <span>Gimpo CHP Digital Twin Platform</span>
+        </div>
+      </div>
+      <form class="global-search" role="search">
+        <label class="sr-only" for="globalSearch">통합검색</label>
+        <input id="globalSearch" type="search" placeholder="Tag, 도면번호, 문서번호, 설비명 검색" autocomplete="off" />
+        <button type="button" id="searchButton">검색</button>
+      </form>
+      <div class="top-actions">
+        <button class="top-button" type="button" data-popup="alarmPopup">알람 <b>12</b></button>
+        <button class="top-button panel-toggle-button" id="togglePanels" type="button" aria-pressed="true">패널 숨기기</button>
+        <span class="user-chip">운영자</span>
+      </div>
+    </header>
+
+    <aside class="sidebar" id="sidebar" aria-label="주 메뉴">
+      <div class="drawer-rail" aria-label="빠른 화면 전환">
+        <button class="rail-shortcut is-active" type="button" data-quick-panel="model" title="3D 모델" aria-pressed="true"><span>3D</span></button>
+        <button class="rail-shortcut" type="button" data-quick-panel="drawing" title="도면" aria-pressed="false"><span>도면</span></button>
+        <button class="rail-shortcut" type="button" data-quick-panel="operation" title="운전정보" aria-pressed="false"><span>운전</span></button>
+        <button class="rail-shortcut" type="button" data-quick-panel="safety" title="안전관제" aria-pressed="false"><span>안전</span></button>
+      </div>
+
+      <div class="drawer-content">
+        <section class="drawer-section drawer-menu-section" aria-label="기능 메뉴">
+          <div class="drawer-section-title">기능 메뉴</div>
+          <nav class="main-nav">
+            <a href="#" data-panel="model" class="is-active"><span class="nav-icon">3D</span><span>3D 모델</span></a>
+            <a href="#" data-panel="drawing"><span class="nav-icon">DWG</span><span>지능형 도면</span></a>
+            <a href="#" data-panel="operation"><span class="nav-icon">OP</span><span>운전정보</span></a>
+            <a href="#" data-panel="safety"><span class="nav-icon">SAFE</span><span>안전관제</span></a>
+            <a href="#" data-panel="safe-zone"><span class="nav-icon">ZONE</span><span>안전 Zone A</span></a>
+            <a href="#" data-panel="cctv"><span class="nav-icon">CCTV</span><span>소방/CCTV Zone</span></a>
+            <a href="#" data-panel="panorama"><span class="nav-icon">PANO</span><span>파노라마 Point</span></a>
+            <a href="#" data-panel="ar"><span class="nav-icon">AR</span><span>AR 점검 마커</span></a>
+            <a href="#" data-panel="robot"><span class="nav-icon">BOT</span><span>패트롤 로봇</span></a>
+          </nav>
+        </section>
+
+        <section class="drawer-section equipment-structure-panel" aria-label="설비구조">
+          <div class="panel-title">
+            <div>
+              <h2>설비구조</h2>
+              <p>설비명 전용 Tree</p>
+            </div>
+            <button type="button" id="treeViewSwitch">List</button>
+          </div>
+          <div class="tree-toolbar">
+            <button type="button" data-filter="all" class="is-active">전체</button>
+            <button type="button" data-filter="critical">취약</button>
+            <button type="button" data-filter="redtag">Red-Tag</button>
+          </div>
+          <div class="tree-scroll custom-scroll">
+            <ul class="equipment-tree" id="equipmentTree">
+              <li class="tree-item has-children is-expanded" data-keyword="gt turbine gasped redtag critical">
+                <div class="tree-row"><button type="button" class="tree-toggle" aria-label="가스터빈 하위 설비 닫기" aria-expanded="true"></button><button type="button" class="tree-node is-selected" data-tag="GT-1001" data-title="가스터빈 GT-1001" data-status="Red-Tag">가스터빈 GT-1001</button></div>
+                <ul>
+                  <li class="tree-item"><div class="tree-row"><span class="tree-toggle-placeholder"></span><button type="button" class="tree-node" data-tag="GT-COMP-021" data-title="압축기 Compressor" data-status="정상">압축기</button></div></li>
+                  <li class="tree-item"><div class="tree-row"><span class="tree-toggle-placeholder"></span><button type="button" class="tree-node" data-tag="GT-COMB-014" data-title="연소기 Combustor" data-status="주의">연소기</button></div></li>
+                  <li class="tree-item"><div class="tree-row"><span class="tree-toggle-placeholder"></span><button type="button" class="tree-node" data-tag="GT-BRG-007" data-title="베어링 Bearing" data-status="정상">베어링</button></div></li>
+                  <li class="tree-item"><div class="tree-row"><span class="tree-toggle-placeholder"></span><button type="button" class="tree-node" data-tag="GT-BLD-032" data-title="터빈 블레이드" data-status="정상">터빈 블레이드</button></div></li>
+                </ul>
+              </li>
+              <li class="tree-item has-children is-expanded" data-keyword="hrsg boiler maintenance critical">
+                <div class="tree-row"><button type="button" class="tree-toggle" aria-label="HRSG #1 하위 설비 닫기" aria-expanded="true"></button><button type="button" class="tree-node" data-tag="HRSG-2001" data-title="배열회수보일러 HRSG #1" data-status="정상">HRSG #1</button></div>
+                <ul>
+                  <li class="tree-item"><div class="tree-row"><span class="tree-toggle-placeholder"></span><button type="button" class="tree-node" data-tag="HRSG-VLV-102" data-title="급수밸브 VLV-102" data-status="주의">급수밸브</button></div></li>
+                  <li class="tree-item"><div class="tree-row"><span class="tree-toggle-placeholder"></span><button type="button" class="tree-node" data-tag="HRSG-PMP-011" data-title="급수펌프 PMP-011" data-status="정상">급수펌프</button></div></li>
+                  <li class="tree-item"><div class="tree-row"><span class="tree-toggle-placeholder"></span><button type="button" class="tree-node" data-tag="HRSG-DRM-001" data-title="Steam Drum" data-status="정상">Steam Drum</button></div></li>
+                </ul>
+              </li>
+              <li class="tree-item" data-keyword="generator electric"><div class="tree-row"><span class="tree-toggle-placeholder"></span><button type="button" class="tree-node" data-tag="GEN-3001" data-title="발전기 GEN-3001" data-status="정상">발전기</button></div></li>
+              <li class="tree-item" data-keyword="transformer electric"><div class="tree-row"><span class="tree-toggle-placeholder"></span><button type="button" class="tree-node" data-tag="TR-4001" data-title="주변압기 TR-4001" data-status="정상">주변압기</button></div></li>
+              <li class="tree-item" data-keyword="switchgear electric"><div class="tree-row"><span class="tree-toggle-placeholder"></span><button type="button" class="tree-node" data-tag="SWGR-01" data-title="전기설비 SWGR-01" data-status="정상">전기설비</button></div></li>
+              <li class="tree-item" data-keyword="pump auxiliary"><div class="tree-row"><span class="tree-toggle-placeholder"></span><button type="button" class="tree-node" data-tag="AUX-PMP-01" data-title="보조기기 펌프" data-status="정상">보조기기 펌프</button></div></li>
+              <li class="tree-item" data-keyword="valve auxiliary"><div class="tree-row"><span class="tree-toggle-placeholder"></span><button type="button" class="tree-node" data-tag="AUX-VLV-09" data-title="보조기기 밸브" data-status="정상">보조기기 밸브</button></div></li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </aside>
+
+    <main class="dashboard-layer" id="dashboardLayer">
+      <section class="dashboard-rail dashboard-rail-left" aria-label="좌측 정보 패널">
+        <article class="overlay-panel chart-panel" style="--card-height:var(--geni-panel-height)">
+          <div class="panel-head"><h2>GENi 정비/TM 통계</h2><button type="button" data-popup="maintenancePopup">확대</button></div>
+          <div class="panel-body custom-scroll">
+            <ul class="compact-list maintenance-summary"><li><span>TM 발행</span><strong>34건</strong></li><li><span>Red-Tag</span><strong>8건</strong></li><li><span>정비완료</span><strong>21건</strong></li><li><span>미결 작업오더</span><strong>6건</strong></li><li><span>주간 예방정비</span><strong>12건</strong></li><li><span>분기 점검 예정</span><strong>18건</strong></li></ul>
+          </div>
+        </article>
+
+
+        <article class="overlay-panel selected-panel" style="--card-height:var(--asset-panel-height)">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Selected Asset Panel</p>
+              <h1 id="selectedTitle">가스터빈 GT-1001</h1>
+              <span id="selectedTag">Tag No. GT-1001 · Red-Tag</span>
+            </div>
+            <button type="button" data-popup="tagPopup">상세</button>
+          </div>
+          <div class="panel-body custom-scroll">
+            <div class="asset-tabs" role="tablist" aria-label="선택 설비 정보 전환">
+              <button type="button" class="asset-tab is-active" role="tab" aria-selected="true" aria-controls="assetInfoTab" data-asset-tab="info">설비정보</button>
+              <button type="button" class="asset-tab" role="tab" aria-selected="false" aria-controls="operationInfoTab" data-asset-tab="operation">운전·성능</button>
+            </div>
+            <div class="asset-tab-panel is-active" id="assetInfoTab" role="tabpanel">
+              <dl class="tag-info"><div><dt>Tag No.</dt><dd id="detailTag">GT-1001</dd></div><div><dt>상태</dt><dd id="detailStatus" class="status-badge danger">Red-Tag</dd></div><div><dt>도면</dt><dd>P&amp;ID-CHP-GT-014</dd></div><div><dt>문서</dt><dd>GT-MANUAL-2026</dd></div></dl>
+              <div class="viewer-tools"><button type="button" class="is-active">3D</button><button type="button" data-popup="drawingPopup">P&amp;ID</button><button type="button" data-popup="operationPopup">OWS</button><button type="button" data-popup="panoramaPopup">Panorama</button></div>
+            </div>
+            <div class="asset-tab-panel" id="operationInfoTab" role="tabpanel" hidden>
+              <div class="bar-chart compact" aria-label="운전성능 데이터 예시"><i style="height:62%"></i><i style="height:74%"></i><i style="height:58%"></i><i style="height:86%"></i><i style="height:69%"></i><i style="height:92%"></i><i style="height:76%"></i></div>
+              <ul class="compact-list"><li><span>GT 출력</span><strong>472MW</strong></li><li><span>효율</span><strong>58.2%</strong></li><li><span>진동</span><strong>2.1mm/s</strong></li><li><span>압축기 효율</span><strong>정상</strong></li><li><span>배기온도</span><strong>586℃</strong></li></ul>
+            </div>
+          </div>
+        </article>
+
+      </section>
+
+      <section class="dashboard-rail dashboard-rail-right" aria-label="우측 정보 패널">
+        <section class="overlay-panel top-metrics" style="--card-height:var(--status-panel-height)" aria-label="주요 운영 현황">
+          <div class="panel-head"><h2>주요 운영 현황</h2></div>
+          <div class="panel-body custom-scroll metrics-body">
+            <div class="metric-card success"><span>출력</span><strong>472</strong><em>MW</em></div>
+            <div class="metric-card success"><span>효율</span><strong>58.2</strong><em>%</em></div>
+            <div class="metric-card warning"><span>주의 설비</span><strong>7</strong><em>EA</em></div>
+            <div class="metric-card danger"><span>AI 알람</span><strong>3</strong><em>건</em></div>
+          </div>
+        </section>
+
+        <article class="overlay-panel link-panel" style="--card-height:var(--link-panel-height)">
+          <div class="panel-head"><h2>Tag 연계 콘텐츠</h2><button type="button" data-popup="trendPopup">Trend</button></div>
+          <div class="panel-body custom-scroll">
+            <div class="link-grid">
+              <button type="button" data-popup="drawingPopup"><strong>지능형 도면</strong><span>P&amp;ID, OWS, DCS Panel</span></button>
+              <button type="button" data-popup="operationPopup"><strong>운전정보</strong><span>실시간 운전값, Trend</span></button>
+              <button type="button" data-popup="maintenancePopup"><strong>정비이력</strong><span>TM, Red-Tag, 작업오더</span></button>
+              <button type="button" data-popup="panoramaPopup"><strong>파노라마</strong><span>400 Point 현장 뷰어</span></button>
+              <button type="button" data-popup="solutionPopup"><strong>솔루션</strong><span>GasPED, DCAT, PreVision</span></button>
+              <button type="button" data-popup="safetyPopup"><strong>안전관제</strong><span>작업자, CCTV, 로봇</span></button>
+            </div>
+          </div>
+        </article>
+
+        <article class="overlay-panel alarm-panel" style="--card-height:var(--alarm-panel-height)">
+          <div class="panel-head"><h2>실시간 알람</h2><button type="button" data-popup="alarmPopup">전체</button></div>
+          <div class="panel-body custom-scroll">
+            <ul class="alarm-list"><li class="danger"><b>10:24</b><span>CCTV-04 안전모 미착용 감지</span></li><li class="warning"><b>10:21</b><span>GT-1001 Red-Tag 발행</span></li><li class="warning"><b>10:18</b><span>Zone A CO 농도 주의</span></li><li><b>10:10</b><span>HRSG 급수밸브 상태 주의</span></li><li><b>09:52</b><span>패트롤 로봇 순찰 완료</span></li><li><b>09:31</b><span>AR 점검 마커 동기화 완료</span></li></ul>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <aside class="quick-panel" id="quickPanel" aria-label="바로가기 상세 패널" hidden>
+      <div class="quick-panel-card">
+        <div class="panel-head"><div><p class="eyebrow" id="quickPanelType">Quick Panel</p><h2 id="quickPanelTitle">3D 모델</h2></div><button type="button" id="quickPanelClose" aria-label="바로가기 패널 닫기">×</button></div>
+        <div class="quick-panel-body custom-scroll" id="quickPanelBody"></div>
+      </div>
+    </aside>
+
+    <button class="floating-panel-toggle" id="floatingPanelToggle" type="button" aria-pressed="true">패널 숨기기</button>
+
+    <div class="popup-layer" id="popupLayer" hidden>
+      <div class="popup-backdrop" data-close-popup></div>
+      <section class="popup-card" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+        <div class="popup-head"><div><p class="eyebrow" id="popupType">Detail</p><h2 id="popupTitle">상세 정보</h2></div><button type="button" id="popupClose" aria-label="닫기">×</button></div>
+        <div class="popup-body custom-scroll" id="popupBody"></div>
+      </section>
+    </div>
+  </div>
+  <script src="./app.js"></script>
+</body>
+</html>
