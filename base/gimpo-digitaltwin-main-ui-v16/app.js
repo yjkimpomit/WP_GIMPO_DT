@@ -92,6 +92,8 @@ function closeDrawerHover() {
 }
 
 document.addEventListener('click', event => {
+  const pageTrigger = event.target.closest('[data-open-page]');
+  if (pageTrigger) { window.location.href = pageTrigger.dataset.openPage; return; }
   const quickTrigger = event.target.closest('[data-quick-panel]');
   if (quickTrigger) { event.preventDefault(); openQuickPanel(quickTrigger.dataset.quickPanel); return; }
   const navTrigger = event.target.closest('.main-nav a[data-panel]');

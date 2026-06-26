@@ -46,3 +46,128 @@
   .top-metrics,.link-panel{max-height:none;}
   .alarm-panel{max-height:none;}
 }
+
+/* v15 patch: drawer menu alignment and neutral drawing entry */
+.main-nav {
+  display: grid;
+  gap: 6px;
+}
+.main-nav a {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  align-items: center;
+  column-gap: 8px;
+  min-height: 34px;
+  padding: 6px 8px;
+  overflow: hidden;
+}
+.main-nav .nav-icon {
+  width: 36px;
+  min-width: 36px;
+  max-width: 36px;
+  height: 22px;
+  padding: 0;
+  line-height: 1;
+  flex: none;
+  font-size: 9px;
+  letter-spacing: -.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+}
+.main-nav .nav-label {
+  min-width: 0;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.2;
+  transform: none;
+  margin: 0;
+}
+.main-nav a[data-page-link] {
+  border: 1px solid rgba(255,255,255,.10);
+}
+.main-nav a[data-page-link]::after {
+  content: "›";
+  justify-self: end;
+  color: rgba(255,255,255,.55);
+  margin-left: 4px;
+}
+.main-nav a[data-page-link] { grid-template-columns: 36px minmax(0,1fr) 12px; }
+
+
+/* v16 theme correction: keep main DT console dark; neutral tone applies only to drawing-neutral.html */
+:root{
+  --text:#eaf4ff;
+  --muted:#9fb8cc;
+  --line:rgba(255,255,255,.16);
+  --glass:rgba(5,18,31,.72);
+  --glass-strong:rgba(9,28,45,.82);
+  --shadow:0 24px 56px rgba(0,0,0,.34);
+}
+body{color:var(--text);background:#061522;}
+.app-shell{background:#061522;}
+.model-gradient{
+  background:
+    radial-gradient(circle at 50% 44%,rgba(31,130,196,.30),transparent 31%),
+    radial-gradient(circle at 50% 52%,rgba(0,178,218,.16),transparent 40%),
+    linear-gradient(135deg,#04111f 0%,#0b2238 48%,#061522 100%);
+}
+.floor-grid{
+  background-image:
+    linear-gradient(rgba(113,190,232,.14) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(113,190,232,.14) 1px,transparent 1px);
+  opacity:.42;
+}
+.plant-unit{
+  background:linear-gradient(145deg,rgba(99,151,184,.86),rgba(32,76,105,.78));
+  border-color:rgba(166,218,246,.40);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 20px 40px rgba(0,0,0,.34);
+  color:#eaf7ff;
+}
+.pipe{background:linear-gradient(90deg,#366b8d,#c0eaff,#4f96bd);}
+.overlay-panel,
+.quick-panel-card,
+.popup-card{
+  color:var(--text);
+  background:var(--glass);
+  border-color:var(--line);
+  box-shadow:var(--shadow);
+}
+.panel-head span,
+.quick-card-list span,
+.link-grid span,
+.compact-list span,
+.alarm-list span,
+.metric-card span,
+.metric-card em,
+.tag-info dt{color:var(--muted);}
+.panel-head button,
+.viewer-tools button,
+.link-grid button,
+.tag-info div,
+.metric-card,
+.compact-list li,
+.alarm-list li,
+.quick-card-list li{
+  color:var(--text);
+  background:rgba(255,255,255,.075);
+  border-color:rgba(255,255,255,.12);
+}
+.viewer-tools button.is-active,
+.panel-head button:hover{background:var(--primary);color:#fff;border-color:rgba(255,255,255,.22);}
+.asset-tabs{background:rgba(255,255,255,.08);}
+.asset-tab{color:#c4d8e8;}
+.asset-tab.is-active{background:rgba(255,255,255,.16);color:#fff;box-shadow:0 8px 18px rgba(0,0,0,.22);}
+.bar-chart{background:rgba(255,255,255,.07);}
+.custom-scroll:hover,.custom-scroll:focus-within{scrollbar-color:rgba(141,203,238,.56) transparent;}
+.custom-scroll:hover::-webkit-scrollbar-thumb,.custom-scroll:focus-within::-webkit-scrollbar-thumb{background:rgba(141,203,238,.56);}
+.status-badge.danger{background:rgba(223,19,76,.18);}
+.status-badge.warning{background:rgba(183,121,31,.20);}
+.status-badge.success{background:rgba(0,133,77,.20);}
+.popup-backdrop{background:rgba(0,0,0,.56);}
+.popup-head{border-bottom-color:rgba(255,255,255,.10);}
+.popup-head button{background:rgba(255,255,255,.10);color:#fff;}
+.popup-box{background:rgba(255,255,255,.075);border-color:rgba(255,255,255,.12);}
+.popup-box p{color:var(--muted);}
