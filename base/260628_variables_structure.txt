@@ -1,0 +1,35 @@
+Foundation
+ ├─ Color
+ ├─ Typography
+ ├─ Spacing
+ ├─ Radius
+ ├─ Shadow
+ └─ Icon
+
+Components
+ ├─ Button
+ ├─ Form
+ ├─ Navigation
+ ├─ Data Display
+ ├─ Feedback
+ ├─ Layout
+ ├─ Chart
+ ├─ Tree
+ ├─ Popup
+ └─ Drawing
+
+Patterns
+ ├─ 검색/필터 패턴
+ ├─ 목록/상세 패턴
+ ├─ 대시보드 패턴
+ ├─ 도면 조회 패턴
+ ├─ 설비 선택 패턴
+ └─ 알림/경고 패턴
+
+Templates
+ ├─ 메인 대시보드
+ ├─ 도면 화면
+ ├─ 설비 상세 화면
+ ├─ 통계 화면
+ ├─ 관리자 목록 화면
+ └─ 팝업 화면
