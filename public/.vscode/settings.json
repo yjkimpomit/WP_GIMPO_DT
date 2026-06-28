@@ -1,6 +1,6 @@
 {
-	//"liveServer.settings.host": "192.168.68.102",
-	"liveServer.settings.host": "10.4.131.9",
+	"liveServer.settings.host": "192.168.68.106",
+	//"liveServer.settings.host": "10.4.131.9",
 	"liveServer.settings.port": 6001,
 	
 	"workbench.colorCustomizations": {
