@@ -1044,7 +1044,7 @@ body.theme-dark-v21 .drawer:not(.is-open):hover{
   padding:14px 10px !important;
   overflow-y:auto !important;
   overflow-x:hidden !important;
-  scrollbar-color:transparent transparent;
+  scrollbar-color:rgba(141,203,238,.42) transparent;
 }
 body.theme-dark-v21 .drawer:not(.is-open):hover .drawer-head{
   opacity:0 !important;
@@ -1098,17 +1098,9 @@ body.theme-dark-v21 .drawer:not(.is-open):hover .drawer-subgroup{
   line-height:1.1;
 }
 body.theme-dark-v21 .drawer:not(.is-open):hover::-webkit-scrollbar{
-  width:0;
-  height:0;
+  width:6px;
 }
 body.theme-dark-v21 .drawer:not(.is-open):hover::-webkit-scrollbar-thumb{
-  background:transparent;
+  background:rgba(141,203,238,.42);
   border-radius:999px;
-}
-body.theme-dark-v21 .drawer:not(.is-open)::-webkit-scrollbar{
-  width:0;
-  height:0;
-}
-body.theme-dark-v21 .drawer:not(.is-open)::-webkit-scrollbar-thumb{
-  background:transparent;
 }

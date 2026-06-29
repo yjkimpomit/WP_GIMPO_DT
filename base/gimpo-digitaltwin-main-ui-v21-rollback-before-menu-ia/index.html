@@ -36,42 +36,23 @@
         <span>기능 메뉴</span>
       </div>
       <nav class="drawer-menu" aria-label="서랍 상단 기능 메뉴">
-        <button type="button" class="is-active" data-quick="digitalTwin3d"><b>3D</b><span>3D 통합 화면</span></button>
-        <strong><small>설비자료</small></strong>
-        <button type="button" data-quick="dashboard"><b>DASH</b><span>대시보드</span></button>
+        <button type="button" class="is-active" data-quick="model"><b>3D</b><span>3D 모델</span></button>
+		<strong><small>설비</small></strong>
+        <button type="button" data-quick="drawing"><b>DWG</b><span>지능형 도면</span></button>
+        <button type="button" data-quick="operation"><b>OP</b><span>운전정보</span></button>
         <button type="button" data-quick="panorama"><b>360</b><span>파노라마</span></button>
-        <button type="button" data-quick="cctv"><b>CCTV</b><span>CCTV</span></button>
-        <button type="button" data-quick="pid"><b>P&amp;ID</b><span>P&amp;ID</span></button>
-        <button type="button" data-quick="ows"><b>OWS</b><span>OWS</span></button>
-        <strong><small>안전</small></strong>
-        <em class="drawer-subgroup">두케어</em>
-        <button type="button" data-quick="gasPed" data-external-window="true"><b>GAS</b><span>gasPED</span></button>
-        <button type="button" data-quick="dcat" data-external-window="true"><b>DCAT</b><span>DCAT</span></button>
-        <button type="button" data-quick="prevision" data-external-window="true"><b>PREV</b><span>PreVISION</span></button>
-        <em class="drawer-subgroup">표준복합</em>
-        <button type="button" data-quick="powerForecast" data-external-window="true"><b>GEN</b><span>발전량 예측</span></button>
-        <button type="button" data-quick="performanceForecast" data-external-window="true"><b>EFF</b><span>성능 예측</span></button>
-        <button type="button" data-quick="anomalyForecast" data-external-window="true"><b>ANM</b><span>이상징후 예측</span></button>
-        <button type="button" data-quick="operationAnalysis" data-external-window="true"><b>ANA</b><span>운전상태 분석</span></button>
-        <button type="button" data-quick="preventiveDiagnosis" data-external-window="true"><b>PM</b><span>예방진단</span></button>
-        <strong><small>AI 현장관제</small></strong>
-        <button type="button" data-quick="workerLocation"><b>LOC</b><span>작업자 위치</span></button>
-        <button type="button" data-quick="healthMonitoring"><b>HLTH</b><span>건강 모니터링</span></button>
-        <button type="button" data-quick="robotDetection"><b>BOT</b><span>4족 보행로봇 감지정보</span></button>
-        <button type="button" data-quick="robotPatrolHistory"><b>PATH</b><span>순찰이력</span></button>
-        <button type="button" data-quick="robotAnomalyAlert"><b>ALRT</b><span>이상감지 알림</span></button>
-        <strong><small>GENi</small></strong>
-        <button type="button" data-quick="facilityInfo"><b>FAC</b><span>설비정보</span></button>
-        <button type="button" data-quick="tmStatus"><b>TM</b><span>TM현황</span></button>
-        <button type="button" data-quick="redTag"><b>RED</b><span>RedTAG</span></button>
-        <button type="button" data-quick="inspectionStatus"><b>CHK</b><span>점검현황</span></button>
-        <button type="button" data-quick="pendingWork"><b>WO</b><span>미결작업</span></button>
-        <button type="button" data-quick="materialInfo"><b>MAT</b><span>자재정보</span></button>
-        <strong><small>AR 현장점검</small></strong>
-        <button type="button" data-quick="arMarker"><b>AR</b><span>AR 점검마커</span></button>
-        <button type="button" data-quick="mobileInspection"><b>MOB</b><span>모바일 현장점검</span></button>
-        <button type="button" data-quick="inspectionResult"><b>REG</b><span>점검결과 등록</span></button>
-        <button type="button" data-quick="inspectionHistory"><b>HIST</b><span>점검이력 조회</span></button>
+        <button type="button" data-quick="facility"><b>FAC</b><span>설비정보</span></button>
+		<strong><small>두케어</small></strong>
+        <button type="button" data-quick="gasped"><b>GAS</b><span>GasPED</span></button>
+        <button type="button" data-quick="dcat"><b>DCAT</b><span>DCAT</span></button>
+        <button type="button" data-quick="prevision"><b>PREV</b><span>PreVision</span></button>
+		<strong><small>안전</small></strong>
+        <button type="button" data-quick="safety"><b>SAFE</b><span>일일안전현황</span></button>
+        <button type="button" data-quick="zoneA"><b>A</b><span>안전 Zone A</span></button>
+        <button type="button" data-quick="cctv"><b>CCTV</b><span>소방/CCTV Zone</span></button>
+		<strong><small>AI</small></strong>
+        <button type="button" data-quick="ar"><b>AR</b><span>AR 점검 마커</span></button>
+        <button type="button" data-quick="robot"><b>BOT</b><span>패트롤 로봇</span></button>
       </nav>
 
       <section class="equipment-panel">
@@ -122,15 +103,14 @@
           <strong id="contextAssetName">HRSG #1</strong>
         </div>
         <div class="asset-context-actions" aria-label="선택 설비 연계 정보">
-          <button type="button" data-context-group="GENi" data-context-popup="assetPopup">설비정보</button>
-          <button type="button" data-context-group="GENi" data-context-popup="maintenancePopup">TM현황</button>
-          <button type="button" data-context-group="설비자료" data-context-popup="drawingPopup">P&amp;ID</button>
-          <button type="button" data-context-group="설비자료" data-context-popup="cctvPopup">CCTV</button>
-          <button type="button" data-context-group="설비자료" data-context-popup="operationPopup">OWS</button>
-          <button type="button" data-context-group="GENi" data-context-popup="inspectionPopup">점검현황</button>
-          <button type="button" data-context-group="GENi" data-context-popup="pendingWorkPopup">미결작업</button>
-          <button type="button" data-context-group="GENi" data-context-popup="redTagPopup">RedTAG</button>
-          <button type="button" data-context-group="AR 현장점검" data-context-popup="arPopup">AR 점검마커</button>
+          <button type="button" data-context-popup="assetPopup">설비정보</button>
+          <button type="button" data-context-popup="maintenancePopup">TM현황</button>
+          <button type="button" data-context-popup="drawingPopup">P&amp;ID</button>
+          <button type="button" data-context-popup="cctvPopup">CCTV</button>
+          <button type="button" data-context-popup="operationPopup">OWS</button>
+          <button type="button" data-context-popup="inspectionPopup">점검현황</button>
+          <button type="button" data-context-popup="redTagPopup">RedTAG</button>
+          <button type="button" data-context-popup="arPopup">AR점검</button>
         </div>
       </aside>
       <div class="model-caption"><strong>GT-1001</strong><span>3D 모델 · Tag 기반 연계정보 활성</span></div>

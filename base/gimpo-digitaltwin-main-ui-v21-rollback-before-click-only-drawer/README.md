@@ -7,8 +7,6 @@
 - `v16-dark-style`
 - `rollback-menu-ia-before-gimpo-dt-definition`
 - `rollback-before-safety-external-icons`
-- `rollback-before-click-only-drawer`
-- `rollback-before-hidden-closed-scrollbar`
 
 ## 수정 반영
 
@@ -20,7 +18,3 @@
 - 안전 메뉴를 단일 그룹으로 묶고 `두케어`/`표준복합`을 서브그룹으로 표시
 - 안전 하위 메뉴의 외부 연결창 성격을 `↗` 아이콘으로 표시
 - 안전 메뉴 외부 연결 아이콘 반영 전 상태는 `../gimpo-digitaltwin-main-ui-v21-rollback-before-safety-external-icons`에 보관
-- 서랍 메뉴는 상단 메뉴 아이콘 클릭으로만 열리고, 닫힌 상태 hover는 좁은 메뉴 스크롤만 허용
-- 클릭 전용 서랍 동작 반영 전 상태는 `../gimpo-digitaltwin-main-ui-v21-rollback-before-click-only-drawer`에 보관
-- 닫힌 좁은 서랍의 스크롤 기능은 유지하되 스크롤바는 숨김 처리
-- 닫힌 서랍 스크롤바 숨김 전 상태는 `../gimpo-digitaltwin-main-ui-v21-rollback-before-hidden-closed-scrollbar`에 보관

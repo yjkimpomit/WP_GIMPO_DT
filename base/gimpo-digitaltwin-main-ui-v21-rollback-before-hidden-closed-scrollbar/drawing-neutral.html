@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>김포열병합 디지털트윈 - 지능형 도면 Light Neutral v18</title>
+  <style>
+    :root{
+      --bg:#1b1d20;
+      --surface-1:#22262a;
+      --surface-2:#2b3035;
+      --surface-3:#343a40;
+      --surface-4:#3e464d;
+      --line:#4b545d;
+      --line-soft:rgba(210,218,224,.16);
+      --text:#eef1f3;
+      --muted:#aab3bb;
+      --subtle:#858f98;
+      --blue-gray:#9fb5c8;
+      --cyan-gray:#a9c7d2;
+      --warning:#d9b86f;
+      --danger:#e2787e;
+      --success:#82bf98;
+      --shadow:0 20px 48px rgba(0,0,0,.34);
+      --radius-lg:18px;
+      --radius-md:12px;
+      --topbar:64px;
+      --left-w:312px;
+      --right-w:344px;
+      --gap:14px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;overflow:hidden;background:var(--bg);color:var(--text);font-family:Pretendard,"Noto Sans KR",system-ui,-apple-system,Segoe UI,sans-serif}
+    body{
+      background:
+        radial-gradient(circle at 55% 34%,rgba(165,175,184,.12),transparent 38%),
+        linear-gradient(135deg,#181a1d 0%,#202428 48%,#17191b 100%);
+    }
+    button,input{font:inherit}
+    .drawing-shell{height:100%;display:grid;grid-template-rows:var(--topbar) 1fr;min-width:1024px}
+    .drawing-topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 20px;border-bottom:1px solid var(--line-soft);background:rgba(33,37,41,.88);backdrop-filter:blur(18px)}
+    .brand{display:flex;align-items:center;gap:12px;min-width:260px}.brand-mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#6d7882,#b8c1c8);box-shadow:inset 0 1px 0 rgba(255,255,255,.28)}.brand strong{display:block;font-size:15px}.brand span{display:block;margin-top:2px;color:var(--muted);font-size:12px}
+    .drawing-search{flex:1;max-width:620px;display:flex;align-items:center;gap:8px;padding:7px;border:1px solid var(--line-soft);background:rgba(255,255,255,.045);border-radius:999px}.drawing-search input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:var(--text);padding:6px 8px}.drawing-search input::placeholder{color:#7f8992}.drawing-search button,.tool-button,.icon-button{border:1px solid var(--line-soft);background:rgba(255,255,255,.055);color:var(--text);border-radius:999px;padding:8px 12px;cursor:pointer}.drawing-search button:hover,.tool-button:hover,.icon-button:hover{background:rgba(255,255,255,.095)}
+    .top-actions{display:flex;align-items:center;gap:8px}.status-pill{border:1px solid rgba(130,191,152,.32);background:rgba(130,191,152,.12);color:#bde5c9;border-radius:999px;padding:8px 11px;font-size:12px}
+    .drawing-main{height:calc(100vh - var(--topbar));display:grid;grid-template-columns:var(--left-w) 1fr var(--right-w);gap:var(--gap);padding:var(--gap);overflow:hidden}
+    .panel{min-height:0;display:flex;flex-direction:column;border:1px solid var(--line-soft);background:rgba(42,47,52,.82);box-shadow:var(--shadow);border-radius:var(--radius-lg);overflow:hidden}.panel-head{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 15px;border-bottom:1px solid var(--line-soft)}.panel-head h2{margin:0;font-size:14px}.panel-head span{color:var(--muted);font-size:12px}.panel-body{min-height:0;flex:1 1 auto;overflow:auto;padding:14px;scrollbar-gutter:stable}.panel-body::-webkit-scrollbar,.canvas-wrap::-webkit-scrollbar{width:6px;height:6px}.panel-body::-webkit-scrollbar-thumb,.canvas-wrap::-webkit-scrollbar-thumb{background:rgba(180,190,198,.38);border-radius:999px}.panel-body::-webkit-scrollbar-track,.canvas-wrap::-webkit-scrollbar-track{background:transparent}
+    .drawing-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}.drawing-list button{width:100%;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;text-align:left;border:1px solid var(--line-soft);background:rgba(255,255,255,.045);color:var(--text);border-radius:12px;padding:10px;cursor:pointer}.drawing-list button:hover,.drawing-list button.is-active{border-color:rgba(185,198,208,.42);background:rgba(185,198,208,.13)}.drawing-list strong{font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.drawing-list span{grid-column:1/-1;color:var(--muted);font-size:11px}.tag{font-size:10px;color:#d8e5ee;border:1px solid rgba(185,198,208,.24);border-radius:999px;padding:3px 6px;background:rgba(255,255,255,.045)}
+    .canvas-panel{min-width:0;display:flex;flex-direction:column;border:1px solid var(--line-soft);background:rgba(38,42,46,.72);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden}.canvas-toolbar{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line-soft);background:rgba(255,255,255,.035)}.toolbar-group{display:flex;align-items:center;gap:8px;min-width:0}.crumb{color:var(--muted);font-size:12px}.canvas-wrap{position:relative;flex:1 1 auto;min-height:0;overflow:auto;padding:24px;background:#202327}.drawing-board{position:relative;width:1280px;height:760px;margin:auto;border:1px solid rgba(225,230,234,.16);border-radius:18px;background:linear-gradient(135deg,#2b3035,#23272b);box-shadow:inset 0 0 0 1px rgba(255,255,255,.035),0 18px 50px rgba(0,0,0,.28)}.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px;border-radius:18px;opacity:.85}.pid-line{position:absolute;background:#aeb8c1;border-radius:999px;box-shadow:0 0 0 1px rgba(255,255,255,.04)}.h{height:4px}.v{width:4px}.line-1{left:110px;top:190px;width:860px}.line-2{left:250px;top:376px;width:780px}.line-3{left:180px;top:558px;width:880px}.line-4{left:250px;top:190px;height:368px}.line-5{left:720px;top:190px;height:186px}.line-6{left:970px;top:190px;height:368px}.equip{position:absolute;display:flex;align-items:center;justify-content:center;text-align:center;border:2px solid #aeb8c1;background:#30363b;color:#f6f8f9;border-radius:16px;font-weight:700;font-size:13px;box-shadow:0 12px 24px rgba(0,0,0,.22)}.equip.turbine{left:130px;top:138px;width:142px;height:104px}.equip.hrsq{left:632px;top:128px;width:170px;height:124px}.equip.generator{left:900px;top:146px;width:132px;height:88px}.equip.pump{left:190px;top:518px;width:126px;height:82px;border-radius:999px}.equip.valve{left:685px;top:344px;width:74px;height:64px;transform:rotate(45deg);border-radius:14px}.equip.valve span{transform:rotate(-45deg)}.equip.danger{border-color:rgba(226,120,126,.95);box-shadow:0 0 0 4px rgba(226,120,126,.14),0 14px 28px rgba(0,0,0,.24)}.marker{position:absolute;display:grid;place-items:center;width:28px;height:28px;border:1px solid rgba(255,255,255,.24);background:#4b545d;color:#fff;border-radius:999px;font-size:11px;font-weight:700}.marker.active{background:#8a5d61;color:#fff;box-shadow:0 0 0 6px rgba(226,120,126,.18)}.m1{left:286px;top:177px}.m2{left:802px;top:177px}.m3{left:759px;top:372px}.m4{left:319px;top:546px}.drawing-label{position:absolute;color:#cfd6dc;font-size:11px;background:rgba(18,20,22,.62);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:5px 7px}.label-1{left:114px;top:250px}.label-2{left:636px;top:260px}.label-3{left:880px;top:250px}.label-4{left:185px;top:608px}
+    .property-card{display:grid;gap:10px}.asset-title{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px;border:1px solid rgba(226,120,126,.32);background:rgba(226,120,126,.1);border-radius:14px}.asset-title strong{font-size:15px}.asset-title em{font-style:normal;font-size:11px;color:#ffd1d4}.kv{display:grid;grid-template-columns:86px 1fr;gap:8px 10px;margin:0}.kv dt{color:var(--muted);font-size:12px}.kv dd{margin:0;font-size:12px;color:var(--text)}.action-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.action-grid button{border:1px solid var(--line-soft);background:rgba(255,255,255,.055);color:var(--text);border-radius:12px;padding:10px;cursor:pointer;text-align:left}.mini-table{width:100%;border-collapse:collapse}.mini-table th,.mini-table td{border-bottom:1px solid var(--line-soft);padding:9px 6px;font-size:12px;text-align:left}.mini-table th{color:var(--muted);font-weight:600}.alert-item{display:grid;grid-template-columns:auto 1fr;gap:8px;border:1px solid var(--line-soft);background:rgba(255,255,255,.045);border-radius:12px;padding:10px}.alert-item b{color:var(--warning);font-size:12px}.alert-item span{font-size:12px;color:#dce1e5}
+
+    /* v18 light neutral drawing tone: white drawing sheet 기준의 밝은 뉴트럴 UI */
+    :root{
+      --bg:#eef1f4;
+      --surface-1:#ffffff;
+      --surface-2:#f7f8fa;
+      --surface-3:#eef1f4;
+      --surface-4:#e3e8ee;
+      --line:#cfd7df;
+      --line-soft:rgba(34,48,62,.13);
+      --text:#17202a;
+      --muted:#647180;
+      --subtle:#84909c;
+      --blue-gray:#365f85;
+      --cyan-gray:#477485;
+      --warning:#a66f00;
+      --danger:#c03945;
+      --success:#247247;
+      --shadow:0 16px 42px rgba(29,42,55,.13);
+    }
+    html,body{background:var(--bg)!important;color:var(--text)!important;}
+    body{background:linear-gradient(135deg,#f4f6f8 0%,#e9edf2 52%,#f7f8fa 100%)!important;}
+    .drawing-topbar{background:rgba(255,255,255,.88)!important;border-bottom-color:var(--line-soft)!important;box-shadow:0 8px 24px rgba(29,42,55,.06);}
+    .brand-mark{background:linear-gradient(135deg,#d8dee5,#7a8795)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.7)!important;}
+    .brand span,.panel-head span,.meta,.drawing-list small,.tag-card span,.info-list span,.link-card span{color:var(--muted)!important;}
+    .drawing-search,.drawing-search button,.tool-button,.icon-button{background:#fff!important;border-color:var(--line-soft)!important;color:var(--text)!important;}
+    .drawing-search input{color:var(--text)!important;}
+    .drawing-search input::placeholder{color:#8b97a4!important;}
+    .status-pill{background:#eef8f2!important;border-color:rgba(36,114,71,.22)!important;color:var(--success)!important;}
+    .panel{background:rgba(255,255,255,.9)!important;border-color:var(--line-soft)!important;box-shadow:var(--shadow)!important;}
+    .panel-head{border-bottom-color:var(--line-soft)!important;}
+    .drawing-list button,.tag-card,.info-list li,.link-card,.property-card,.alarm-row{background:#f8fafc!important;border-color:var(--line-soft)!important;color:var(--text)!important;}
+    .drawing-list button.is-active,.drawing-list button:hover,.link-card:hover{background:#eef3f7!important;border-color:#aebbc8!important;}
+    .canvas-panel{background:#f4f6f8!important;}
+    .canvas-toolbar{background:rgba(255,255,255,.9)!important;border-color:var(--line-soft)!important;}
+    .canvas-wrap{background:#dde4eb!important;border-color:var(--line-soft)!important;}
+    .drawing-sheet{background:#fff!important;border-color:#c9d2dc!important;box-shadow:0 18px 42px rgba(29,42,55,.12)!important;}
+    .pipe-line{background:#5e6b77!important;}
+    .symbol,.tag-marker{background:#fff!important;border-color:#7d8a97!important;color:#1f2a36!important;}
+    .tag-marker.is-selected{background:#e8f2fb!important;border-color:#2f6f9f!important;color:#174c72!important;}
+    .panel-body::-webkit-scrollbar-thumb,.canvas-wrap::-webkit-scrollbar-thumb{background:rgba(91,105,119,.38)!important;}
+    .danger{color:var(--danger)!important}.warning{color:var(--warning)!important}.success{color:var(--success)!important}
+
+  </style>
+</head>
+<body class="theme-light-neutral">
+  <div class="drawing-shell">
+    <header class="drawing-topbar">
+      <div class="brand"><span class="brand-mark"></span><div><strong>Intelligent Drawing Viewer</strong><span>지능형 도면 · Neutral Gray</span></div></div>
+      <form class="drawing-search"><input type="search" placeholder="Tag, 도면번호, 문서번호 검색" value="P&ID-GT-1023" /><button type="button">검색</button></form>
+      <div class="top-actions"><span class="status-pill">Read Only</span><button type="button" class="tool-button">관리자 구성</button></div>
+    </header>
+
+    <main class="drawing-main">
+      <aside class="panel">
+        <div class="panel-head"><div><h2>도면 목록</h2><span>김포열병합 / GT 계통</span></div><button type="button" class="icon-button">필터</button></div>
+        <div class="panel-body">
+          <ul class="drawing-list">
+            <li><button class="is-active"><strong>P&amp;ID-GT-1023</strong><i class="tag">P&amp;ID</i><span>가스터빈 연료/공기 계통</span></button></li>
+            <li><button><strong>DCS-GT-PNL-014</strong><i class="tag">DCS</i><span>GT 제어 판넬</span></button></li>
+            <li><button><strong>OWS-GT-OP-008</strong><i class="tag">OWS</i><span>운전화면 연계</span></button></li>
+            <li><button><strong>ELEC-SLD-4001</strong><i class="tag">SLD</i><span>전기설비 단선도</span></button></li>
+            <li><button><strong>FIRE-PLAN-A-01</strong><i class="tag">FIRE</i><span>소방 Plan 도면</span></button></li>
+          </ul>
+        </div>
+      </aside>
+
+      <section class="canvas-panel" aria-label="도면 뷰어">
+        <div class="canvas-toolbar">
+          <div class="toolbar-group"><strong>P&amp;ID-GT-1023</strong><span class="crumb">GT-1001 / 연료·공기 계통</span></div>
+          <div class="toolbar-group"><button class="tool-button">Zoom</button><button class="tool-button">Pan</button><button class="tool-button">Highlight</button><button class="tool-button">Selection</button></div>
+        </div>
+        <div class="canvas-wrap">
+          <div class="drawing-board">
+            <div class="grid"></div>
+            <span class="pid-line h line-1"></span><span class="pid-line h line-2"></span><span class="pid-line h line-3"></span><span class="pid-line v line-4"></span><span class="pid-line v line-5"></span><span class="pid-line v line-6"></span>
+            <div class="equip turbine danger">GT-1001<br>Gas Turbine</div>
+            <div class="equip hrsq">HRSG #1</div>
+            <div class="equip generator">GEN-3001</div>
+            <div class="equip pump">PMP-011</div>
+            <div class="equip valve"><span>VLV</span></div>
+            <span class="marker active m1">RT</span><span class="marker m2">T</span><span class="marker m3">V</span><span class="marker m4">P</span>
+            <span class="drawing-label label-1">GT-1001 Red-Tag / GENi WO-2406-118</span>
+            <span class="drawing-label label-2">HRSG-2001 운전정보 연계</span>
+            <span class="drawing-label label-3">GEN-3001 설비정보</span>
+            <span class="drawing-label label-4">PMP-011 최근 TM 2건</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="panel">
+        <div class="panel-head"><div><h2>Tag 연계 정보</h2><span>선택 객체: GT-1001</span></div><button type="button" class="icon-button">팝업</button></div>
+        <div class="panel-body">
+          <div class="property-card">
+            <div class="asset-title"><strong>가스터빈 GT-1001</strong><em>Red-Tag</em></div>
+            <dl class="kv"><dt>Tag No.</dt><dd>GT-1001</dd><dt>도면번호</dt><dd>P&amp;ID-GT-1023</dd><dt>3D Object</dt><dd>M3D-GT-1001</dd><dt>파노라마</dt><dd>Point 083</dd><dt>정비이력</dt><dd>최근 30일 4건</dd></dl>
+            <div class="action-grid"><button>3D 모델 보기</button><button>운전정보</button><button>GENi 이력</button><button>파노라마</button></div>
+            <table class="mini-table"><thead><tr><th>구분</th><th>값</th><th>상태</th></tr></thead><tbody><tr><td>출력</td><td>472MW</td><td>정상</td></tr><tr><td>효율</td><td>58.2%</td><td>정상</td></tr><tr><td>진동</td><td>2.1mm/s</td><td>주의</td></tr></tbody></table>
+            <div class="alert-item"><b>알림</b><span>Red-Tag 발생 설비 클릭 시 GENi 작업오더명이 팝업됩니다.</span></div>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+</body>
+</html>

@@ -40,35 +40,15 @@ panelVisibilityButtons.forEach(button => {
 });
 
 const quickContent = {
-  digitalTwin3d: ['3D 통합 화면', '3D 설비 선택 후 태그 기반 연계 정보를 바로가기 버튼그룹으로 제공합니다.'],
-  dashboard: ['대시보드', '설비 상태와 주요 지표를 요약해 조회합니다.'],
-  panorama: ['파노라마', '현장 공간 또는 설비 주변 시각 자료를 확인합니다.'],
-  cctv: ['CCTV', '설비 또는 현장 영상을 확인합니다.'],
-  pid: ['P&ID', '배관 및 계장 도면을 조회합니다.'],
-  ows: ['OWS', '운전 화면 또는 운전 관련 화면을 조회합니다.'],
-  gasPed: ['gasPED', '가스설비 이상진단 결과를 확인합니다.'],
-  dcat: ['DCAT', '설비상태 진단 정보를 확인합니다.'],
-  prevision: ['PreVISION', '예측 기반 안전진단 정보를 확인합니다.'],
-  powerForecast: ['발전량 예측', '운전 데이터 기반 발전량 예측을 확인합니다.'],
-  performanceForecast: ['성능 예측', '설비 성능 저하 또는 효율 변화 예측을 확인합니다.'],
-  anomalyForecast: ['이상징후 예측', '운전 데이터 기반 이상징후 탐지 결과를 확인합니다.'],
-  operationAnalysis: ['운전상태 분석', '운전 조건 및 상태 데이터를 분석합니다.'],
-  preventiveDiagnosis: ['예방진단', '이상 발생 전 예방 관점의 진단 정보를 확인합니다.'],
-  workerLocation: ['작업자 위치', '현장 작업자의 위치 및 이동 상태를 확인합니다.'],
-  healthMonitoring: ['건강 모니터링', '작업자의 생체 또는 건강 상태를 모니터링합니다.'],
-  robotDetection: ['4족 보행로봇 감지정보', '로봇이 감지한 현장 정보를 확인합니다.'],
-  robotPatrolHistory: ['순찰이력', '로봇의 이동 경로 및 순찰 기록을 확인합니다.'],
-  robotAnomalyAlert: ['이상감지 알림', '로봇 또는 AI가 감지한 이상 상황을 표시합니다.'],
-  facilityInfo: ['설비정보', '기존 GENi/iPOS 명칭을 유지해 설비 기본 정보와 상세 정보를 조회합니다.'],
-  tmStatus: ['TM현황', '태그 또는 계측 데이터 기반 현황을 조회합니다.'],
-  redTag: ['RedTAG', '위험·주의·관리 대상 태그 정보를 확인합니다.'],
-  inspectionStatus: ['점검현황', '설비별 점검 상태 및 이력을 확인합니다.'],
-  pendingWork: ['미결작업', '완료되지 않은 작업 또는 정비 항목을 확인합니다.'],
-  materialInfo: ['자재정보', '설비 관련 자재 및 예비품 정보를 조회합니다.'],
-  arMarker: ['AR 점검마커', '설비별 AR 마커 정보를 확인합니다.'],
-  mobileInspection: ['모바일 현장점검', '모바일 기기 기반 점검 수행 화면으로 진입합니다.'],
-  inspectionResult: ['점검결과 등록', '현장 점검 결과를 입력하고 저장합니다.'],
-  inspectionHistory: ['점검이력 조회', '과거 AR 기반 점검 내역을 확인합니다.']
+  model: ['3D 모델', '선택 설비의 3D 모델, 내부구조, Tag 위치를 통합 표시합니다.'],
+  drawing: ['지능형 도면', 'P&ID, DCS 판넬, 전기단선도에서 동일 Tag를 하이라이트합니다.'],
+  operation: ['운전정보', '실시간 운전값, Trend, 알람 상태를 조회합니다.'],
+  safety: ['안전관제', 'AI 영상분석, 작업자 위치, 유해가스 알람을 통합합니다.'],
+  zoneA: ['안전 Zone A', '출입 제한, 위험 작업, 유해가스 감지 상태를 표시합니다.'],
+  cctv: ['소방/CCTV Zone', '화재·연기·안전모 미착용·작업자 쓰러짐 감지 결과를 확인합니다.'],
+  panorama: ['파노라마 Point', '360도 현장 사진의 Tag와 3D 모델/도면을 연계합니다.'],
+  ar: ['AR 점검 마커', 'AR 마커 기반 설비 인식, 체크리스트, 이상등록을 수행합니다.'],
+  robot: ['패트롤 로봇', '무인 자율주행 로봇의 과열·누설·안전순찰 데이터를 확인합니다.']
 };
 
 $$('.drawer-menu button').forEach(button => {
@@ -137,7 +117,6 @@ const popupData = {
   cctvPopup: ['CCTV 연계', '<p>선택 설비 주변 CCTV, AI 영상 분석, 소방 감지 이벤트를 확인합니다.</p>'],
   operationPopup: ['OWS 운전정보', '<p>선택 설비의 OWS 운전값, 알람, Trend, 운전 이력을 조회합니다.</p>'],
   inspectionPopup: ['점검현황', '<p>현장 점검 체크리스트, 예정 점검, 미조치 항목과 조치 이력을 확인합니다.</p>'],
-  pendingWorkPopup: ['미결작업', '<p>선택 설비 기준의 미완료 작업오더, 담당 부서, 예정 완료일을 확인합니다.</p>'],
   redTagPopup: ['RedTAG 현황', '<p>RedTAG 발행 내역, 격리 상태, 작업오더, 해제 승인 정보를 확인합니다.</p>'],
   panoramaPopup: ['파노라마 Point', '<p>Point 083. 현장 360 View에서 GT-1001 Tag를 호출합니다.</p>'],
   gasPedPopup: ['GasPED 성능진단', '<h3>가스터빈 성능평가/진단</h3><table class="popup-table"><tr><th>상태</th><td>정상</td></tr><tr><th>성능저하</th><td>1.2%</td></tr><tr><th>판단</th><td>대기환경 보정 후 효율 정상범위</td></tr></table>'],
