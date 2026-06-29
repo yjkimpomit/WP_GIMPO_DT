@@ -10,9 +10,6 @@
 - `rollback-before-click-only-drawer`
 - `rollback-before-hidden-closed-scrollbar`
 - `rollback-before-hidden-drawer-scrollbar-all-states`
-- `rollback-before-closed-drawer-alignment`
-- `rollback-before-subgroup-flyout`
-- `rollback-before-rest-menu-flyouts`
 
 ## 수정 반영
 
@@ -30,9 +27,3 @@
 - 닫힌 서랍 스크롤바 숨김 전 상태는 `../gimpo-digitaltwin-main-ui-v21-rollback-before-hidden-closed-scrollbar`에 보관
 - 서랍 스크롤바가 메뉴를 가리지 않도록 열림/닫힘 전체 상태에서 스크롤바 숨김 처리
 - 전체 서랍 스크롤바 숨김 전 상태는 `../gimpo-digitaltwin-main-ui-v21-rollback-before-hidden-drawer-scrollbar-all-states`에 보관
-- 닫힌 서랍 상태에서 헤더 숨김, 메뉴 버튼 중앙 정렬, drawer-menu 패딩 0 적용
-- 닫힌 서랍 정렬 보정 전 상태는 `../gimpo-digitaltwin-main-ui-v21-rollback-before-closed-drawer-alignment`에 보관
-- 닫힌 서랍 상태에서 `두케어`/`표준복합` 서브그룹만 보이고 hover 시 우측 플로팅 하위메뉴 표시
-- 서브그룹 플로팅 하위메뉴 반영 전 상태는 `../gimpo-digitaltwin-main-ui-v21-rollback-before-subgroup-flyout`에 보관
-- 닫힌 서랍 상태에서 설비자료/AI 현장관제/GENi/AR 현장점검도 hover/focus 시 우측 플로팅 하위메뉴 표시
-- 나머지 메뉴 플로팅 하위메뉴 반영 전 상태는 `../gimpo-digitaltwin-main-ui-v21-rollback-before-rest-menu-flyouts`에 보관

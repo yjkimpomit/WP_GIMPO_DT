@@ -94,42 +94,20 @@ function hideDrawerSubmenu() {
   drawerSubmenuPopup.hidden = true;
 }
 
-function renderDrawerPopup(title, buttons) {
-  drawerSubmenuPopup.innerHTML = `<strong>${title}</strong>${buttons.map(button => `<button type="button" data-quick="${button.dataset.quick}"${button.dataset.externalWindow ? ' data-external-window="true"' : ''}><b>${button.querySelector('b')?.textContent || ''}</b><span>${button.querySelector('span')?.textContent || ''}</span></button>`).join('')}`;
-}
-
-function placeDrawerPopup(trigger, estimatedHeight = 260) {
-  const rect = trigger.getBoundingClientRect();
-  drawerSubmenuPopup.style.top = `${Math.max(72, Math.min(rect.top - 8, window.innerHeight - estimatedHeight))}px`;
-  drawerSubmenuPopup.hidden = false;
-}
-
 function showDrawerSubmenu(trigger) {
   if (drawer.classList.contains('is-open')) return hideDrawerSubmenu();
   const subgroup = trigger.dataset.subgroupTrigger;
   const buttons = $$(`.drawer-menu button[data-subgroup="${subgroup}"]`);
   if (!buttons.length) return hideDrawerSubmenu();
-  renderDrawerPopup(trigger.textContent.trim(), buttons);
-  placeDrawerPopup(trigger);
-}
-
-function showDrawerMenuGroup(trigger) {
-  if (drawer.classList.contains('is-open')) return hideDrawerSubmenu();
-  const menuGroup = trigger.dataset.menuTrigger;
-  const buttons = $$(`.drawer-menu button[data-menu-group="${menuGroup}"]`);
-  if (!buttons.length) return hideDrawerSubmenu();
-  renderDrawerPopup(trigger.textContent.trim(), buttons);
-  placeDrawerPopup(trigger);
+  const rect = trigger.getBoundingClientRect();
+  drawerSubmenuPopup.innerHTML = `<strong>${trigger.textContent.trim()}</strong>${buttons.map(button => `<button type="button" data-quick="${button.dataset.quick}" data-external-window="true"><b>${button.querySelector('b')?.textContent || ''}</b><span>${button.querySelector('span')?.textContent || ''}</span></button>`).join('')}`;
+  drawerSubmenuPopup.style.top = `${Math.max(72, Math.min(rect.top - 8, window.innerHeight - 260))}px`;
+  drawerSubmenuPopup.hidden = false;
 }
 
 $$('.drawer-subgroup[data-subgroup-trigger]').forEach(trigger => {
   trigger.addEventListener('mouseenter', () => showDrawerSubmenu(trigger));
   trigger.addEventListener('focus', () => showDrawerSubmenu(trigger));
-});
-
-$$('.drawer-group-trigger[data-menu-trigger]').forEach(trigger => {
-  trigger.addEventListener('mouseenter', () => showDrawerMenuGroup(trigger));
-  trigger.addEventListener('focus', () => showDrawerMenuGroup(trigger));
 });
 
 drawer.addEventListener('mouseleave', event => {

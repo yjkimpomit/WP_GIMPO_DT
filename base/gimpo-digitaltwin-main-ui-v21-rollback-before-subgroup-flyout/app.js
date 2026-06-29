@@ -17,7 +17,6 @@ const popupClose = $('#popupClose');
 const assetContextMenu = $('#assetContextMenu');
 const contextAssetTag = $('#contextAssetTag');
 const contextAssetName = $('#contextAssetName');
-const drawerSubmenuPopup = $('#drawerSubmenuPopup');
 let selectedContextAsset = { title: 'HRSG #1', tag: 'HRSG-2001', status: '정상' };
 
 function setPanelVisibility(isVisible) {
@@ -72,75 +71,20 @@ const quickContent = {
   inspectionHistory: ['점검이력 조회', '과거 AR 기반 점검 내역을 확인합니다.']
 };
 
-function openQuickContent(button) {
-  $$('.drawer-menu button, .drawer-submenu-popup button').forEach(b => b.classList.remove('is-active'));
-  button.classList.add('is-active');
-  const data = quickContent[button.dataset.quick] || ['Quick Panel', '연계 정보를 표시합니다.'];
-  quickTitle.textContent = data[0];
-  quickBody.innerHTML = `<p>${data[1]}</p><table class="popup-table"><tr><th>Tag</th><td>GT-1001</td></tr><tr><th>연계</th><td>3D 모델 · 도면 · 파노라마 · GENi</td></tr></table>`;
-  quickPanel.classList.add('is-open');
-  quickPanel.setAttribute('aria-hidden', 'false');
-}
-
 $$('.drawer-menu button').forEach(button => {
-  button.addEventListener('click', () => openQuickContent(button));
+  button.addEventListener('click', () => {
+    $$('.drawer-menu button').forEach(b => b.classList.remove('is-active'));
+    button.classList.add('is-active');
+    const data = quickContent[button.dataset.quick] || ['Quick Panel', '연계 정보를 표시합니다.'];
+    quickTitle.textContent = data[0];
+    quickBody.innerHTML = `<p>${data[1]}</p><table class="popup-table"><tr><th>Tag</th><td>GT-1001</td></tr><tr><th>연계</th><td>3D 모델 · 도면 · 파노라마 · GENi</td></tr></table>`;
+    quickPanel.classList.add('is-open');
+    quickPanel.setAttribute('aria-hidden', 'false');
+  });
 });
 quickClose.addEventListener('click', () => {
   quickPanel.classList.remove('is-open');
   quickPanel.setAttribute('aria-hidden', 'true');
-});
-
-function hideDrawerSubmenu() {
-  drawerSubmenuPopup.hidden = true;
-}
-
-function renderDrawerPopup(title, buttons) {
-  drawerSubmenuPopup.innerHTML = `<strong>${title}</strong>${buttons.map(button => `<button type="button" data-quick="${button.dataset.quick}"${button.dataset.externalWindow ? ' data-external-window="true"' : ''}><b>${button.querySelector('b')?.textContent || ''}</b><span>${button.querySelector('span')?.textContent || ''}</span></button>`).join('')}`;
-}
-
-function placeDrawerPopup(trigger, estimatedHeight = 260) {
-  const rect = trigger.getBoundingClientRect();
-  drawerSubmenuPopup.style.top = `${Math.max(72, Math.min(rect.top - 8, window.innerHeight - estimatedHeight))}px`;
-  drawerSubmenuPopup.hidden = false;
-}
-
-function showDrawerSubmenu(trigger) {
-  if (drawer.classList.contains('is-open')) return hideDrawerSubmenu();
-  const subgroup = trigger.dataset.subgroupTrigger;
-  const buttons = $$(`.drawer-menu button[data-subgroup="${subgroup}"]`);
-  if (!buttons.length) return hideDrawerSubmenu();
-  renderDrawerPopup(trigger.textContent.trim(), buttons);
-  placeDrawerPopup(trigger);
-}
-
-function showDrawerMenuGroup(trigger) {
-  if (drawer.classList.contains('is-open')) return hideDrawerSubmenu();
-  const menuGroup = trigger.dataset.menuTrigger;
-  const buttons = $$(`.drawer-menu button[data-menu-group="${menuGroup}"]`);
-  if (!buttons.length) return hideDrawerSubmenu();
-  renderDrawerPopup(trigger.textContent.trim(), buttons);
-  placeDrawerPopup(trigger);
-}
-
-$$('.drawer-subgroup[data-subgroup-trigger]').forEach(trigger => {
-  trigger.addEventListener('mouseenter', () => showDrawerSubmenu(trigger));
-  trigger.addEventListener('focus', () => showDrawerSubmenu(trigger));
-});
-
-$$('.drawer-group-trigger[data-menu-trigger]').forEach(trigger => {
-  trigger.addEventListener('mouseenter', () => showDrawerMenuGroup(trigger));
-  trigger.addEventListener('focus', () => showDrawerMenuGroup(trigger));
-});
-
-drawer.addEventListener('mouseleave', event => {
-  const next = event.relatedTarget;
-  if (!drawerSubmenuPopup.contains(next)) hideDrawerSubmenu();
-});
-
-drawerSubmenuPopup.addEventListener('mouseleave', hideDrawerSubmenu);
-drawerSubmenuPopup.addEventListener('click', event => {
-  const button = event.target.closest('button[data-quick]');
-  if (button) openQuickContent(button);
 });
 
 $$('.tree-toggle').forEach(toggle => {
